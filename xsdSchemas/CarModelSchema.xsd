@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2017 rel. 3 (x64) (http://www.altova.com) by serg (serg) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified" attributeFormDefault="unqualified" vc:minVersion="1.1">
+	<xs:element name="CarModel" type="CarModelType"/>
+	<xs:complexType name="CarModelType">
+		<xs:sequence>
+			<xs:element name="manufacturer" type="xs:string"/>
+			<xs:element name="model" type="xs:string"/>
+			<xs:element name="gear" type="gearType"/>
+			<xs:element name="power" type="xs:integer"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="gearType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="automatic"/>
+			<xs:enumeration value="manual"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
