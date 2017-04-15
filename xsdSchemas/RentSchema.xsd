@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2017 rel. 3 (x64) (http://www.altova.com) by serg (serg) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified" attributeFormDefault="unqualified" vc:minVersion="1.1">
+	<xs:include schemaLocation="https://raw.githubusercontent.com/niksergey/carsharing/master/xsdSchemas/CarSchema.xsd"/>
+	<xs:include schemaLocation="https://raw.githubusercontent.com/niksergey/carsharing/master/xsdSchemas/LeaserSchema.xsd"/>
+	<xs:element name="Rent" type="rentType"/>
+	<xs:complexType name="rentType">
+		<xs:sequence>
+			<xs:element name="Car" type="carType"/>
+			<xs:element name="Leaser" type="LeaserType"/>
+			<xs:element name="startDate" type="xs:date"/>
+			<xs:element name="finishDate" type="xs:date"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
