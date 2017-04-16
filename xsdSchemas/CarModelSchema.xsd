@@ -7,7 +7,7 @@
 			<xs:element name="manufacturer" type="xs:string"/>
 			<xs:element name="model" type="xs:string"/>
 			<xs:element name="gear" type="gearType"/>
-			<xs:element name="power" type="xs:integer"/>
+			<xs:element name="power" type="xs:int"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:simpleType name="gearType">
