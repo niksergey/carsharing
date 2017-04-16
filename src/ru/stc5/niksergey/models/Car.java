@@ -42,10 +42,18 @@ public class Car {
         this.producedDate = producedDate;
     }
 
+    /**
+     * Shows whether the car is available to rent or not
+     * @return availability to rent the car
+     */
     public boolean isAvailable() {
         return available;
     }
 
+    /**
+     * Sets whether the car is available to rent or not
+     * @param status boolean value changing status of the car
+     */
     public void setAvailable(boolean status) {
         available = status;
     }

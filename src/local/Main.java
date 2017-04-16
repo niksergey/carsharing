@@ -1,5 +1,8 @@
-package ru.stc5.niksergey;
+package local;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+import ru.stc5.niksergey.CarsharingCompany;
 import ru.stc5.niksergey.models.CarModel;
 import ru.stc5.niksergey.models.Gear;
 import ru.stc5.niksergey.xjc.CarModelType;
@@ -16,21 +19,29 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 public class Main {
+    static {
+        DOMConfigurator.configure("fileLog.xml");
+    }
+
+    private final static Logger LOGGER = Logger.getLogger(Main.class);
 
     public static void main(String[] args) {
         CarsharingCompany innoSharing = new CarsharingCompany();
 
         CarModel rio = new CarModel("Kia", "rio", Gear.MANUAL, 126);
         DateFormat sf = new SimpleDateFormat("MM-yyyy");
+        String dateString = null;
         try {
-            Date prodDate = sf.parse("01-2016");
+            dateString = "01-2016";
+            Date prodDate = sf.parse(dateString);
             innoSharing.appendCar(rio, "Z94CB41AACR000001", prodDate);
         } catch (ParseException e) {
-            e.printStackTrace();
+            LOGGER.warn("Incorrect date string: " + dateString);
         }
 
-        System.out.println(innoSharing.getParkSize());
+        LOGGER.info("Park size: " + innoSharing.getParkSize());
     }
 
     private static void jaxbPlaying() {
