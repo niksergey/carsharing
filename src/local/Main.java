@@ -5,6 +5,7 @@ import org.apache.log4j.xml.DOMConfigurator;
 import ru.stc5.niksergey.CarsharingCompany;
 import ru.stc5.niksergey.models.CarModel;
 import ru.stc5.niksergey.models.Gear;
+import ru.stc5.niksergey.utils.DatabaseManager;
 import ru.stc5.niksergey.xjc.CarModelType;
 import ru.stc5.niksergey.xjc.GearType;
 import ru.stc5.niksergey.xjc.ObjectFactory;
@@ -40,6 +41,9 @@ public class Main {
         } catch (ParseException e) {
             LOGGER.warn("Incorrect date string: " + dateString);
         }
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager.insert(rio);
 
         LOGGER.info("Park size: " + innoSharing.getParkSize());
     }
