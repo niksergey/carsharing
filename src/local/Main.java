@@ -2,24 +2,20 @@ package local;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
+
 import ru.stc5.niksergey.CarsharingCompany;
-import ru.stc5.niksergey.models.CarModel;
+import ru.stc5.niksergey.models.CarModels;
+import ru.stc5.niksergey.models.Cars;
+import ru.stc5.niksergey.models.Leasers;
+import ru.stc5.niksergey.models.Rents;
+import ru.stc5.niksergey.models.xjc.*;
 import ru.stc5.niksergey.utils.DatabaseManager;
-import ru.stc5.niksergey.xjc.CarModelType;
-import ru.stc5.niksergey.xjc.GearType;
-import ru.stc5.niksergey.xjc.ObjectFactory;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Set;
-
 
 public class Main {
     static {
@@ -28,51 +24,42 @@ public class Main {
 
     private final static Logger LOGGER = Logger.getLogger(Main.class);
 
-    public static void main(java.lang.String[] args) {
-        CarsharingCompany innoSharing = new CarsharingCompany();
 
-        CarModel rio = new CarModel("Kia", "rio", "manual", 126);
-        DateFormat sf = new SimpleDateFormat("MM-yyyy");
-        java.lang.String dateString = null;
-        try {
-            dateString = "01-2016";
-            Date prodDate = sf.parse(dateString);
-            innoSharing.appendCar(rio, "Z94CB41AACR000001", prodDate);
-        } catch (ParseException e) {
-            LOGGER.warn("Incorrect date string: " + dateString);
-        }
-
+    public static void main(String[] args) {
         DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.insert(rio);
 
-        LOGGER.info("Park size: " + innoSharing.getParkSize());
+        Cars park = new Cars();
+        park.setCars(databaseManager.getCars());
+        unmarshall(park, "xmlFiles/cars.xml");
 
-        Set<CarModel> allModels = CarModel.getCarModel(databaseManager.select("car_model"));
-        System.out.println(allModels.size());
+        Rents history = new Rents();
+        history.setRents(databaseManager.getRents());
+        unmarshall(history, "xmlFiles/rents.xml");
+
+        CarModels catalog = new CarModels();
+        catalog.setCarModels(databaseManager.getCarModels());
+        unmarshall(catalog, "xmlFiles/carModels.xml");
+
+        Leasers clients = new Leasers();
+        clients.setLeasers(databaseManager.getLeasers());
+        unmarshall(clients, "xmlFiles/leasers.xml");
+
     }
 
-    private static void jaxbPlaying() {
-        ObjectFactory objectFactory = new ObjectFactory();
-        CarModelType solarisComfort = objectFactory.createCarModelType();
-        solarisComfort.setManufacturer("KIA");
-        solarisComfort.setModel("Solaris");
-        solarisComfort.setGear(GearType.AUTOMATIC);
-        solarisComfort.setPower(120);
-
-
+    private static <T> void unmarshall(T wrapClass, String fileName) {
         try {
-            File file = new File("xmlFiles/solaris.xml");
-            JAXBContext jaxbContext = JAXBContext.newInstance(CarModelType.class);
+            File file = new File(fileName);
+            JAXBContext jaxbContext = JAXBContext.newInstance(wrapClass.getClass());
+
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-            jaxbMarshaller.marshal(solarisComfort, file);
-            jaxbMarshaller.marshal(solarisComfort, System.out);
+            jaxbMarshaller.marshal(wrapClass, file);
 
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            CarModelType solarisUnm = (CarModelType) jaxbUnmarshaller.unmarshal(file);
-            System.out.println(solarisUnm);
+//            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+//            CarModel solarisUnm = (CarModel) jaxbUnmarshaller.unmarshal(file);
+//            System.out.println(solarisUnm);
         } catch (JAXBException e) {
             e.printStackTrace();
         }

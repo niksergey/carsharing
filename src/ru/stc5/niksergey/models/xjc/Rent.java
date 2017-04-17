@@ -8,11 +8,7 @@
 
 package ru.stc5.niksergey.models.xjc;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
@@ -27,7 +23,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="car" type="{}Car"/>
- *         &lt;element name="leaserDB" type="{}Leaser"/>
+ *         &lt;element name="leaser" type="{}Leaser"/>
  *         &lt;element name="startDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="finishDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *       &lt;/sequence>
@@ -41,16 +37,17 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Rent", propOrder = {
     "car",
-    "leaserDB",
+    "leaser",
     "startDate",
     "finishDate"
 })
+@XmlRootElement
 public class Rent {
 
     @XmlElement(required = true)
     protected Car car;
     @XmlElement(required = true)
-    protected Leaser leaserDB;
+    protected Leaser leaser;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar startDate;
@@ -83,27 +80,27 @@ public class Rent {
     }
 
     /**
-     * Gets the value of the leaserDB property.
+     * Gets the value of the leaser property.
      * 
      * @return
      *     possible object is
      *     {@link Leaser }
      *     
      */
-    public Leaser getLeaserDB() {
-        return leaserDB;
+    public Leaser getLeaser() {
+        return leaser;
     }
 
     /**
-     * Sets the value of the leaserDB property.
+     * Sets the value of the leaser property.
      * 
      * @param value
      *     allowed object is
      *     {@link Leaser }
      *     
      */
-    public void setLeaserDB(Leaser value) {
-        this.leaserDB = value;
+    public void setLeaser(Leaser value) {
+        this.leaser = value;
     }
 
     /**
@@ -154,4 +151,13 @@ public class Rent {
         this.finishDate = value;
     }
 
+    @Override
+    public String toString() {
+        return "Rent{" +
+                "car=" + car +
+                ", leaser=" + leaser +
+                ", startDate=" + startDate +
+                ", finishDate=" + finishDate +
+                '}';
+    }
 }

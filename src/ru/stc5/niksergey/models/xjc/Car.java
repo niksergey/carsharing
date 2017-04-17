@@ -8,10 +8,7 @@
 
 package ru.stc5.niksergey.models.xjc;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -48,11 +45,12 @@ import javax.xml.bind.annotation.XmlType;
     "vin",
     "year"
 })
+@XmlRootElement
 public class Car {
 
     @XmlElement(required = true)
     protected CarModel carModel;
-    protected int vin;
+    protected String vin;
     protected int year;
 
     /**
@@ -83,7 +81,7 @@ public class Car {
      * Gets the value of the vin property.
      * 
      */
-    public int getVin() {
+    public String getVin() {
         return vin;
     }
 
@@ -91,7 +89,7 @@ public class Car {
      * Sets the value of the vin property.
      * 
      */
-    public void setVin(int value) {
+    public void setVin(String value) {
         this.vin = value;
     }
 
@@ -111,4 +109,12 @@ public class Car {
         this.year = value;
     }
 
+    @Override
+    public String toString() {
+        return "Car{" +
+                "carModel=" + carModel +
+                ", vin='" + vin + '\'' +
+                ", year=" + year +
+                '}';
+    }
 }

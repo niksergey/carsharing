@@ -165,4 +165,14 @@ public class CarModel {
         result = 31 * result + power;
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "CarModel{" +
+                "manufacturer='" + manufacturer + '\'' +
+                ", model='" + model + '\'' +
+                ", gear='" + gear + '\'' +
+                ", power=" + power +
+                '}';
+    }
 }

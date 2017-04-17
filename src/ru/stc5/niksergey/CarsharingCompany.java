@@ -1,9 +1,9 @@
 package ru.stc5.niksergey;
 
-import ru.stc5.niksergey.models.Car;
-import ru.stc5.niksergey.models.CarModel;
-import ru.stc5.niksergey.models.Leaser;
-import ru.stc5.niksergey.models.Rent;
+import ru.stc5.niksergey.models.xjc.Car;
+import ru.stc5.niksergey.models.xjc.CarModel;
+import ru.stc5.niksergey.models.xjc.Leaser;
+import ru.stc5.niksergey.models.xjc.Rent;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -34,8 +34,20 @@ public class CarsharingCompany {
      * @param producedDate Date containing car production date
      */
     public void appendCar(CarModel carModel, String vin, Date producedDate) {
-        Car newOne = new Car(carModel, vin, producedDate);
+        Car newOne = new Car();
         carPark.add(newOne);
+    }
+
+    public void appendCarModel(CarModel cm) {
+        carModels.add(cm);
+    }
+
+    public void appendAllCarModels(Set<CarModel> bunchCarModels) {
+        carModels.addAll(bunchCarModels);
+    }
+
+    public int countCarModels() {
+        return carModels.size();
     }
 
     /**

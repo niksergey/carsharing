@@ -8,10 +8,7 @@
 
 package ru.stc5.niksergey.models.xjc;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 
 
 /**
@@ -45,6 +42,7 @@ import javax.xml.bind.annotation.XmlType;
     "phoneNumber",
     "email"
 })
+@XmlRootElement
 public class Leaser {
 
     @XmlElement(required = true)
@@ -198,5 +196,16 @@ public class Leaser {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Leaser{" +
+                "firstName='" + firstName + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
