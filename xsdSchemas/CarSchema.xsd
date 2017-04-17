@@ -6,7 +6,7 @@
 	<xs:complexType name="Car">
 		<xs:sequence>
 			<xs:element name="carModel" type="CarModel"/>
-			<xs:element name="vin" type="xs:int"/>
+			<xs:element name="vin" type="xs:string"/>
 			<xs:element name="year">
 				<xs:simpleType>
 					<xs:restriction base="xs:int">
