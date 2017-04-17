@@ -3,11 +3,11 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" elementFormDefault="qualified" attributeFormDefault="unqualified" vc:minVersion="1.1">
 	<xs:include schemaLocation="https://raw.githubusercontent.com/niksergey/carsharing/master/xsdSchemas/CarSchema.xsd"/>
 	<xs:include schemaLocation="https://raw.githubusercontent.com/niksergey/carsharing/master/xsdSchemas/LeaserSchema.xsd"/>
-	<xs:element name="Rent" type="rentType"/>
-	<xs:complexType name="rentType">
+	<xs:element name="Rent" type="Rent"/>
+	<xs:complexType name="Rent">
 		<xs:sequence>
-			<xs:element name="Car" type="carType"/>
-			<xs:element name="Leaser" type="LeaserType"/>
+			<xs:element name="car" type="Car"/>
+			<xs:element name="leaser" type="Leaser"/>
 			<xs:element name="startDate" type="xs:date"/>
 			<xs:element name="finishDate" type="xs:date"/>
 		</xs:sequence>
