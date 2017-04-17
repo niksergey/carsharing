@@ -4,6 +4,8 @@ import org.apache.log4j.Logger;
 import ru.stc5.niksergey.models.CarModel;
 
 import java.sql.*;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class DatabaseManager {
@@ -27,21 +29,18 @@ public class DatabaseManager {
         return connection;
     }
 
-    public void select() {
+    public ResultSet select(String tableName) {
         Connection connection = initConnection();
 
+        ResultSet result = null;
         try {
             Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM car_model;");
-            while (result.next()) {
-                System.out.print("Author " + result.getString(2));
-                System.out.print(", title " + result.getString("car_model_manufacturer"));
-                System.out.print(", year " + result.getInt("car_model_power"));
-                System.out.println(", isbn " + result.getString("car_model_gear"));
-            }
+            result = statement.executeQuery("SELECT * FROM " + tableName + ";");
+
         } catch (SQLException e) {
             LOGGER.warn("SQLException in SELECT statement", e);
         }
+        return result;
     }
 
     public void insert(CarModel carModel) {

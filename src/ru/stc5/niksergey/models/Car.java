@@ -57,4 +57,19 @@ public class Car {
     public void setAvailable(boolean status) {
         available = status;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Car car = (Car) o;
+
+        return vin.equals(car.vin);
+    }
+
+    @Override
+    public int hashCode() {
+        return vin.hashCode();
+    }
 }

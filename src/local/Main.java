@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 import ru.stc5.niksergey.CarsharingCompany;
 import ru.stc5.niksergey.models.CarModel;
-import ru.stc5.niksergey.models.Gear;
 import ru.stc5.niksergey.utils.DatabaseManager;
 import ru.stc5.niksergey.xjc.CarModelType;
 import ru.stc5.niksergey.xjc.GearType;
@@ -19,6 +18,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 
 public class Main {
@@ -28,12 +28,12 @@ public class Main {
 
     private final static Logger LOGGER = Logger.getLogger(Main.class);
 
-    public static void main(String[] args) {
+    public static void main(java.lang.String[] args) {
         CarsharingCompany innoSharing = new CarsharingCompany();
 
-        CarModel rio = new CarModel("Kia", "rio", Gear.MANUAL, 126);
+        CarModel rio = new CarModel("Kia", "rio", "manual", 126);
         DateFormat sf = new SimpleDateFormat("MM-yyyy");
-        String dateString = null;
+        java.lang.String dateString = null;
         try {
             dateString = "01-2016";
             Date prodDate = sf.parse(dateString);
@@ -46,6 +46,9 @@ public class Main {
         databaseManager.insert(rio);
 
         LOGGER.info("Park size: " + innoSharing.getParkSize());
+
+        Set<CarModel> allModels = CarModel.getCarModel(databaseManager.select("car_model"));
+        System.out.println(allModels.size());
     }
 
     private static void jaxbPlaying() {
