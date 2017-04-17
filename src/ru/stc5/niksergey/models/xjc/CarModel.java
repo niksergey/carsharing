@@ -143,4 +143,26 @@ public class CarModel {
         this.power = value;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CarModel carModel = (CarModel) o;
+
+        if (power != carModel.power) return false;
+        if (manufacturer != null ? !manufacturer.equals(carModel.manufacturer) : carModel.manufacturer != null)
+            return false;
+        if (model != null ? !model.equals(carModel.model) : carModel.model != null) return false;
+        return gear != null ? gear.equals(carModel.gear) : carModel.gear == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = manufacturer != null ? manufacturer.hashCode() : 0;
+        result = 31 * result + (model != null ? model.hashCode() : 0);
+        result = 31 * result + (gear != null ? gear.hashCode() : 0);
+        result = 31 * result + power;
+        return result;
+    }
 }

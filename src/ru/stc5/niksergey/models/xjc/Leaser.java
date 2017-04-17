@@ -178,4 +178,25 @@ public class Leaser {
         this.email = value;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Leaser leaser = (Leaser) o;
+
+        if (firstName != null ? !firstName.equals(leaser.firstName) : leaser.firstName != null) return false;
+        if (secondName != null ? !secondName.equals(leaser.secondName) : leaser.secondName != null) return false;
+        if (lastName != null ? !lastName.equals(leaser.lastName) : leaser.lastName != null) return false;
+        return email != null ? email.equals(leaser.email) : leaser.email == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstName != null ? firstName.hashCode() : 0;
+        result = 31 * result + (secondName != null ? secondName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        return result;
+    }
 }
