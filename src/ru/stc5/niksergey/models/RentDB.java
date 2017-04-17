@@ -5,31 +5,31 @@ import java.util.Date;
 /**
  * Created by sergey on 16.04.17.
  */
-public class Rent {
-    private Car car;
-    private Leaser leaser;
+public class RentDB {
+    private CarDB car;
+    private LeaserDB leaserDB;
     private Date startDate;
     private Date finishDate;
 
-    public Rent(Car car, Leaser leaser) {
+    public RentDB(CarDB car, LeaserDB leaserDB) {
         this.car = car;
-        this.leaser = leaser;
+        this.leaserDB = leaserDB;
     }
 
-    public Car getCar() {
+    public CarDB getCar() {
         return car;
     }
 
-    public void setCar(Car car) {
+    public void setCar(CarDB car) {
         this.car = car;
     }
 
-    public Leaser getLeaser() {
-        return leaser;
+    public LeaserDB getLeaserDB() {
+        return leaserDB;
     }
 
-    public void setLeaser(Leaser leaser) {
-        this.leaser = leaser;
+    public void setLeaserDB(LeaserDB leaserDB) {
+        this.leaserDB = leaserDB;
     }
 
     public Date getStartDate() {

@@ -3,14 +3,14 @@ package ru.stc5.niksergey.models;
 /**
  * Created by sergey on 16.04.17.
  */
-public class Leaser {
+public class LeaserDB {
     private String firstName;
     private String secondName;
     private String lastName;
     private String phoneNumber;
     private String email;
 
-    public Leaser(String firstName, String secondName, String lastName, String phoneNumber, String email) {
+    public LeaserDB(String firstName, String secondName, String lastName, String phoneNumber, String email) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.lastName = lastName;

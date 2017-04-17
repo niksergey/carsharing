@@ -5,25 +5,25 @@ import java.util.Date;
 /**
  * Created by sergey on 16.04.17.
  */
-public class Car {
-    private CarModel carModel;
+public class CarDB {
+    private CarModelDB carModelDB;
     private String vin;
     private Date producedDate;
     private boolean available;
 
-    public Car(CarModel carModel, String vin, Date producedDate) {
-        this.carModel = carModel;
+    public CarDB(CarModelDB carModelDB, String vin, Date producedDate) {
+        this.carModelDB = carModelDB;
         this.vin = vin;
         this.producedDate = producedDate;
         this.available = true;
     }
 
-    public CarModel getCarModel() {
-        return carModel;
+    public CarModelDB getCarModelDB() {
+        return carModelDB;
     }
 
-    public void setCarModel(CarModel carModel) {
-        this.carModel = carModel;
+    public void setCarModelDB(CarModelDB carModelDB) {
+        this.carModelDB = carModelDB;
     }
 
     public String getVin() {
@@ -63,7 +63,7 @@ public class Car {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Car car = (Car) o;
+        CarDB car = (CarDB) o;
 
         return vin.equals(car.vin);
     }
