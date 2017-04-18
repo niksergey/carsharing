@@ -15,7 +15,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.util.Set;
 
 public class Main {
     static {
@@ -27,34 +26,46 @@ public class Main {
 
     public static void main(String[] args) {
         DatabaseManager databaseManager = new DatabaseManager();
+//        databaseManager.clearDatabase();
+        downloadFromDataBase(databaseManager);
 
+//        uploadToDataBase(databaseManager);
+    }
+
+    private static void downloadFromDataBase(DatabaseManager dbm) {
         Cars park = new Cars();
-        park.setCars(databaseManager.getCars());
+        park.setCars(dbm.getCars());
         marshall(park, "xmlFiles/cars.xml");
 
         Rents history = new Rents();
-        history.setRents(databaseManager.getRents());
+        history.setRents(dbm.getRents());
         marshall(history, "xmlFiles/rents.xml");
 
         CarModels catalog = new CarModels();
-        catalog.setCarModels(databaseManager.getCarModels());
+        catalog.setCarModels(dbm.getCarModels());
         marshall(catalog, "xmlFiles/carModels.xml");
 
         Leasers clients = new Leasers();
-        clients.setLeasers(databaseManager.getLeasers());
+        clients.setLeasers(dbm.getLeasers());
         marshall(clients, "xmlFiles/leasers.xml");
+    }
 
-//        Leasers unmarshLeasers = new Leasers();
-//        unmarshLeasers = unmarshall(unmarshLeasers, "xmlFiles/leasers.xml");
-//        Set<Leaser> unmLeas = unmarshLeasers.getLeasers();
-//
-//        Cars uCars = new Cars();
-//        uCars = unmarshall(uCars, "xmlFiles/cars.xml");
-//        databaseManager.uploadCars(uCars.getCars());
-//
-//        CarModels uCarModels = new CarModels();
-//        uCarModels = unmarshall(uCarModels, "xmlFiles/carModels.xml");
-//        databaseManager.uploadCarModels(uCarModels.getCarModels());
+    private static void uploadToDataBase(DatabaseManager dbm) {
+        Leasers unmarshLeasers = new Leasers();
+        unmarshLeasers = unmarshall(unmarshLeasers, "xmlFiles/leasers.xml");
+        dbm.uploadLeasers(unmarshLeasers.getLeasers());
+
+        CarModels uCarModels = new CarModels();
+        uCarModels = unmarshall(uCarModels, "xmlFiles/carModels.xml");
+        dbm.uploadCarModels(uCarModels.getCarModels());
+
+        Cars uCars = new Cars();
+        uCars = unmarshall(uCars, "xmlFiles/cars.xml");
+        dbm.uploadCars(uCars.getCars());
+
+        Rents uRents = new Rents();
+        uRents = unmarshall(uRents, "xmlFiles/rents.xml");
+        dbm.uploadRents(uRents.getRents());
     }
 
     private static <T> void marshall(T wrapClass, String fileName) {

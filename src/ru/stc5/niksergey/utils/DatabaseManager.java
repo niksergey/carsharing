@@ -238,12 +238,13 @@ public class DatabaseManager {
         try(Connection conn = initConnection()) {
             for (Car cm : cars) {
                 String query = "INSERT INTO car (car_vin, car_year," +
-                        " car_model_car_model_id) " +
-                        " VALUES (?, ?, ?);";
+                        " car_model_car_model_id, car_id) " +
+                        " VALUES (?, ?, ?, ?);";
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
                 preparedStatement.setString(1, cm.getVin());
                 preparedStatement.setInt(2, cm.getYear());
                 preparedStatement.setInt(3, cm.getCarModel().getId());
+                preparedStatement.setInt(4, cm.getId());
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -282,6 +283,8 @@ public class DatabaseManager {
                 preparedStatement.setInt(1, rn.getLeaser().getId());
                 preparedStatement.setInt(2, rn.getCar().getId());
                 preparedStatement.setDate(3, XMLCalendarToDate.toSqlDate(rn.getStartDate()));
+                preparedStatement.setDate(4, XMLCalendarToDate.toSqlDate(rn.getFinishDate()));
+                preparedStatement.setInt(5, rn.getId());
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -289,12 +292,12 @@ public class DatabaseManager {
         }
     }
 
-    public void clearTable() {
+    public void clearDatabase() {
         try (Connection connection = initConnection()) {
             Statement statement = connection.createStatement();
-            statement.execute("DELETE FROM carsharing;");
+            statement.executeUpdate("TRUNCATE rent, car, leaser, car_model;");
         } catch (SQLException e) {
-            LOGGER.warn("SQLException in ClearTable method", e);
+            LOGGER.warn("SQLException in clearDatabase() method", e);
         }
     }
 }
