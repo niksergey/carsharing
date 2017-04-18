@@ -43,15 +43,20 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "Car", propOrder = {
     "carModel",
     "vin",
-    "year"
+    "year",
+        "id"
 })
 @XmlRootElement
 public class Car {
 
     @XmlElement(required = true)
     protected CarModel carModel;
+    @XmlElement(required = true)
     protected String vin;
+    @XmlElement(required = true)
     protected int year;
+    @XmlElement(required = true)
+    protected int id;
 
     /**
      * Gets the value of the carModel property.
@@ -107,6 +112,14 @@ public class Car {
      */
     public void setYear(int value) {
         this.year = value;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

@@ -43,4 +43,10 @@ public class XMLCalendarToDate {
         return calendar.toGregorianCalendar().getTime();
     }
 
+    public static java.sql.Date toSqlDate(XMLGregorianCalendar calendar) {
+        if (calendar == null)
+            return null;
+        java.sql.Date date = new java.sql.Date(calendar.toGregorianCalendar().getTimeInMillis());
+        return date;
+    }
 }

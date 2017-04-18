@@ -77,6 +77,7 @@ public class DatabaseManager {
                 model.setModel(result.getString("car_model_model"));
                 model.setGear(result.getString("car_model_gear"));
                 model.setPower(result.getInt("car_model_power"));
+                model.setId(result.getInt("car_model_id"));
                 models.add(model);
             }
         } catch (SQLException e) {
@@ -125,6 +126,7 @@ public class DatabaseManager {
                 car.setCarModel(this.getCarModel(result.getInt("car_model_car_model_id")));
                 car.setVin(result.getString("car_vin"));
                 car.setYear(result.getInt("car_year"));
+                car.setId(result.getInt("car_id"));
                 cars.add(car);
             }
         } catch (SQLException e) {
@@ -176,6 +178,7 @@ public class DatabaseManager {
                 leaser.setLastName(result.getString("leaser_last_name"));
                 leaser.setPhoneNumber(result.getString("leaser_phone_number"));
                 leaser.setEmail(result.getString("leaser_email"));
+                leaser.setId(result.getInt("leaser_id"));
                 leasers.add(leaser);
             }
         } catch (SQLException e) {
@@ -211,22 +214,80 @@ public class DatabaseManager {
         return rents;
     }
 
-//    public void insert(CarModelDB carModelDB) {
-//        Connection connection = initConnection();
-//        String query = "INSERT INTO car_model (car_model_manufacturer, car_model_model," +
-//                " car_model_power) " +
-//                " VALUES (?, ?, ?);";
-//        try {
-//            PreparedStatement preparedStatement = connection.prepareStatement(query);
-//            preparedStatement.setString(1, carModelDB.getManufacturer());
-//            preparedStatement.setString(2, carModelDB.getModel());
-//            preparedStatement.setInt(3, carModelDB.getPower());
-//            //            preparedStatement.setString(4, carModelDB.getGear());
-//            preparedStatement.executeUpdate();
-//        } catch (SQLException e) {
-//            LOGGER.warn("SQLException in INSERT statement", e);
-//        }
-//    }
+    public void uploadCarModels(Set<CarModel> models) {
+        try(Connection conn = initConnection()) {
+            for (CarModel cm : models) {
+                String query = "INSERT INTO car_model (car_model_manufacturer, car_model_model," +
+                        " car_model_gear, car_model_power, car_model_id) " +
+                        " VALUES (?, ?, ?, ?, ?);";
+                PreparedStatement preparedStatement = conn.prepareStatement(query);
+                preparedStatement.setString(1, cm.getManufacturer());
+                preparedStatement.setString(2, cm.getModel());
+                preparedStatement.setString(3, cm.getGear());
+                preparedStatement.setInt(4, cm.getPower());
+                preparedStatement.setInt(5, cm.getId());
+
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            LOGGER.warn("SQLException in uploadCarModels() INSERT statement", e);
+        }
+    }
+
+    public void uploadCars(Set<Car> cars) {
+        try(Connection conn = initConnection()) {
+            for (Car cm : cars) {
+                String query = "INSERT INTO car (car_vin, car_year," +
+                        " car_model_car_model_id) " +
+                        " VALUES (?, ?, ?);";
+                PreparedStatement preparedStatement = conn.prepareStatement(query);
+                preparedStatement.setString(1, cm.getVin());
+                preparedStatement.setInt(2, cm.getYear());
+                preparedStatement.setInt(3, cm.getCarModel().getId());
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            LOGGER.warn("SQLException in uploadCarModels() INSERT statement", e);
+        }
+    }
+
+    public void uploadLeasers(Set<Leaser> leasers) {
+        try(Connection conn = initConnection()) {
+            for (Leaser ls : leasers) {
+                String query = "INSERT INTO leaser (leaser_first_name, leaser_second_name," +
+                        "leaser_last_name, leaser_email, leaser_phone_number," +
+                        " leaser_id) " +
+                        " VALUES (?, ?, ?, ?, ?, ?);";
+                PreparedStatement preparedStatement = conn.prepareStatement(query);
+                preparedStatement.setString(1, ls.getFirstName());
+                preparedStatement.setString(2, ls.getSecondName());
+                preparedStatement.setString(3, ls.getLastName());
+                preparedStatement.setString(4, ls.getEmail());
+                preparedStatement.setString(5, ls.getPhoneNumber());
+                preparedStatement.setInt(6, ls.getId());
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            LOGGER.warn("SQLException in uploadCarModels() INSERT statement", e);
+        }
+    }
+
+    public void uploadRents(Set<Rent> rents) {
+        try(Connection conn = initConnection()) {
+            for (Rent rn : rents) {
+                String query = "INSERT INTO rent (leaser_leaser_id, car_car_id," +
+                        " rent_start_date, rent_finish_date, rent_id) " +
+                        " VALUES (?, ?, ?, ?, ?);";
+                PreparedStatement preparedStatement = conn.prepareStatement(query);
+                preparedStatement.setInt(1, rn.getLeaser().getId());
+                preparedStatement.setInt(2, rn.getCar().getId());
+                preparedStatement.setDate(3, XMLCalendarToDate.toSqlDate(rn.getStartDate()));
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            LOGGER.warn("SQLException in uploadCarModels() INSERT statement", e);
+        }
+    }
 
     public void clearTable() {
         try (Connection connection = initConnection()) {

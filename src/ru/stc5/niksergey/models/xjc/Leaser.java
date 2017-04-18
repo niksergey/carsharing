@@ -40,7 +40,8 @@ import javax.xml.bind.annotation.*;
     "secondName",
     "lastName",
     "phoneNumber",
-    "email"
+    "email",
+        "id"
 })
 @XmlRootElement
 public class Leaser {
@@ -55,6 +56,7 @@ public class Leaser {
     protected String phoneNumber;
     @XmlElement(required = true)
     protected String email;
+    int id;
 
     /**
      * Gets the value of the firstName property.
@@ -174,6 +176,14 @@ public class Leaser {
      */
     public void setEmail(String value) {
         this.email = value;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

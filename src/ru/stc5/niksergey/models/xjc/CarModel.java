@@ -42,7 +42,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     "manufacturer",
     "model",
     "gear",
-    "power"
+    "power",
+        "id"
 })
 @XmlRootElement
 public class CarModel {
@@ -53,7 +54,10 @@ public class CarModel {
     protected String model;
     @XmlElement(required = true)
     protected String gear;
+    @XmlElement(required = true)
     protected int power;
+    @XmlElement(required = true)
+    int id;
 
     /**
      * Gets the value of the manufacturer property.
@@ -141,6 +145,14 @@ public class CarModel {
      */
     public void setPower(int value) {
         this.power = value;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

@@ -39,7 +39,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "car",
     "leaser",
     "startDate",
-    "finishDate"
+    "finishDate",
+        "id"
 })
 @XmlRootElement
 public class Rent {
@@ -55,6 +56,8 @@ public class Rent {
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar finishDate;
 
+    @XmlElement(required = true)
+    protected int id;
     /**
      * Gets the value of the car property.
      * 
@@ -149,6 +152,14 @@ public class Rent {
      */
     public void setFinishDate(XMLGregorianCalendar value) {
         this.finishDate = value;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
