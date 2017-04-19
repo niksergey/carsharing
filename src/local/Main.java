@@ -26,10 +26,10 @@ public class Main {
 
     public static void main(String[] args) {
         DatabaseManager databaseManager = new DatabaseManager();
-//        databaseManager.clearDatabase();
-        downloadFromDataBase(databaseManager);
+        databaseManager.clearDatabase();
+//        downloadFromDataBase(databaseManager);
 
-//        uploadToDataBase(databaseManager);
+        uploadToDataBase(databaseManager);
     }
 
     private static void downloadFromDataBase(DatabaseManager dbm) {

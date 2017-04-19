@@ -196,7 +196,7 @@ public class DatabaseManager {
             Statement statement = conn.createStatement();
             result = statement.executeQuery("SELECT * FROM rent;");
             while (result.next()) {
-                Rent rent = new Rent();
+                Rent rent = new Rent();//constructor
                 rent.setCar(getCar(result.getInt("car_car_id")));
                 rent.setLeaser(getLeaser(result.getInt("leaser_leaser_id")));
                 rent.setStartDate(
@@ -227,7 +227,7 @@ public class DatabaseManager {
                 preparedStatement.setInt(4, cm.getPower());
                 preparedStatement.setInt(5, cm.getId());
 
-                preparedStatement.executeUpdate();
+                preparedStatement.executeUpdate();//execute batch
             }
         } catch (SQLException e) {
             LOGGER.warn("SQLException in uploadCarModels() INSERT statement", e);
